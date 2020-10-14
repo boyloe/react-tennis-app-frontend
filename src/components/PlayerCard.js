@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function PlayerCard({name, age, gender, skill, phone, court}) {
+export default function PlayerCard({name, age, gender, skill, phone, court, imgurl}) {
     return (
         <div className="player-card">
-            <img className="player-image" src="https://www.mariowiki.com/images/6/67/MTA_Models_Waluigi.png" alt={name} />
+            <img className="player-image" src={imgurl} alt={name} />
             <h2 className="player-name">{name}</h2>
             <ul>
                 <li className="attributes">Age: {age}</li>

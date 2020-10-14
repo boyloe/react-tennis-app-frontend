@@ -1,4 +1,9 @@
+.player-container {
+  display:flex;
+  flex-flow: row wrap;
+}
+
 .player-image {
-  width: 250px;
-  height: 250px;
+  height: 300px;
+  width: auto;
 }

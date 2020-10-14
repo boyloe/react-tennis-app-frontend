@@ -44,7 +44,7 @@ class App extends React.Component {
           </select>       
           <input type='submit' value="Create User"/> 
         </form>
-        <PlayerContainer players={this.state.players} />
+        <PlayerContainer className="player-container" players={this.state.players} />
       </div>
     );
   }
