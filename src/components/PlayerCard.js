@@ -10,7 +10,7 @@ export default function PlayerCard({name, age, gender, skill, phone, court, imgu
                 <li className="attributes">Gender: {gender}</li>
                 <li className="attributes">Skill: {skill}</li>
                 <li className="attributes">Phone: {phone}</li>
-                <li className="attributes">Home Court: {court}</li>
+                <li className="attributes">Home Court: {court.name}</li>
             </ul>
         </div>
     )
