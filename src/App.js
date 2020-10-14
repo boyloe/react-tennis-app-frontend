@@ -1,13 +1,17 @@
 import React from 'react';
 import './App.css';
 import PlayerContainer from './components/PlayerContainer'
+import LogoHeader from './components/LogoHeader';
+import AddNewPlayer from './components/AddNewPlayer'
 const BASE_URL = `http://localhost:3000`
 
 class App extends React.Component {
 
   state = {
     players: [],
-    courts: []
+    courts: [],
+    similarPlayers: []
+
   }
 
   componentDidMount() {
@@ -21,30 +25,39 @@ class App extends React.Component {
   }
 
   courtSelectOption = () => this.state.courts.map(court => {
-    console.log(court)
     return <option key={court.id} value={court.id}>{court.name}</option>
   })
+
+  postNewPlayer = (player) => {
+    console.log(this.state.courts)
+    fetch(`${BASE_URL}/players`, {
+      method: 'POST',
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify(player)
+    }).then(response => response.json())      
+      .then(player => this.setState({ players: [...this.state.players, player]}))
+  }
+
+  filterPlayers = (court) => {
+    let matchingPlayers = this.state.player.filter(player => player.court_id === court.id)
+    this.setState({similarPlayers: matchingPlayers})
+  } 
+
+
 
   render() {
     return (
       <div className="App">
-        <form className="new-user">
-          <input type="text" placeholder="Enter Your Name" />
-          <input type="number" placeholder="Enter Your Age" />
-          <input type="text" placeholder="Enter Your Gender" />
-          <input type="text" placeholder="Enter Your Phone Number" />
-
-          <select name="skill" id="skill-select">
-            <option value="beginner">Beginner</option>
-            <option value="intermediate">Intermediate</option>
-            <option value="advanced">Advanced</option>
-          </select>
-          <select name="court_id"> 
-            {this.courtSelectOption()}
-          </select>       
-          <input type='submit' value="Create User"/> 
+        <LogoHeader />
+        <AddNewPlayer className="add-player" courtSelectOption={this.courtSelectOption} postNewPlayer={this.postNewPlayer}/>
+        <form className="filter-players">
         </form>
-        <PlayerContainer players={this.state.players} />
+        <div className="container">
+
+          <PlayerContainer players={this.state.players} />
+        </div>
       </div>
     );
   }
